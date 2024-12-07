@@ -1,294 +1,216 @@
+<style>
+    * {
+  margin: 0;
+  padding: 0;
+}
+body {
+
+  min-height: 100vh;
+  background-image: url('assets/bg.jpg');
+}
+
+.container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  transform-style: preserve-3d;
+  perspective: 500px;
+  margin: auto;
+}
+.container .box {
+  position: relative;
+  width: 270px;
+  height: 270px;
+  background: #000;
+  transition: 0.5s;
+  transform-style: preserve-3d;
+  overflow: hidden;
+  margin-right: 15px;
+  margin-top: 45px;
+  border: 1px solid black;
+}
+.container:hover .box {
+  transform: rotateY(25deg);
+}
+.container .box:hover ~ .box {
+  transform: rotateY(-25deg);
+}
+.container .box:hover {
+  transform: rotateY(0deg) scale(1.25);
+  z-index: 1;
+  box-shadow: 0 25px 40px rgba(0,0,0,0.5);
+}
+.container .box .imgBx {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.container .box .imgBx:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg,pink,#000);
+  z-index: 1;
+  opacity: 0;
+  transition: 0.5s;
+  mix-blend-mode: multiply;
+}
+.container .box:hover .imgBx:before {
+  opacity: 1;
+}
+.container .box .imgBx img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.container .box .content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  padding: 20px;
+  align-items: flex-end;
+  box-sizing: border-box;
+}
+.container .box .content h2 {
+  color: #fff;
+  transition: 0.5s;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  font-size: 20px;
+  transform: translateY(200px);
+  transition-delay: 0.3s;
+}
+.container .box:hover .content h2 {
+  transform: translateY(0px);
+}
+.container .box .content p {
+  color: #fff;
+  transition: 0.5s;
+  font-size: 14px;
+  transform: translateY(200px);
+  transition-delay: 0.4s;
+}
+.container .box:hover .content p {
+  transform: translateY(0px);
+}
+</style>
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Date?</title>
-    <link rel="stylesheet" href="style.css">
-    
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Bellota+Text:ital,wght@1,300&family=Poppins:wght@400;700&family=Roboto:wght@400;700&display=swap');
-        *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Bellota Text', sans-serif;
-    
-}
-
-.popup {
-        display: none;
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0,0,0,0.5);
-    }
-
-    .popup-content {
-
-        width: 80dvh; /* Example width */
-        margin:10px;
-        height: 80dvh; /* Example height */
-        background-image: url("assets/nats.png");
-        background-size: cover; 
-        background-position: center; /* Center the image */
-        background-repeat: no-repeat; /* Prevent tiling if the image is smaller */
-        margin: 15% auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%;
-    }
-
-body, html{
-    width: 100%;
-    height: 100vh;
-    background-image: url("assets/bg.jpg");
-    background-size:cover;
-}
-.confirmation{
-    display: none;
-    width: 400px;
-    height: 500px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
-    text-align: center;
-    /* padding-top: 50px; */
-}
-.confirmation h1{
-    font-style: bolder;
-    font-size: 50px;
-    font-weight: 700;
-    text-shadow: 0px 3px 6px rgb(147, 77, 77);
-    line-height: 90px;
-}
-.fix-gif{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width:100%;
-    height: 200px;
-    
-}
-.fix-gifimg{
-    border-radius: 10px;
-    width: 384px;
-    height: 216px;
-    background-image: url("https://media1.tenor.com/m/2VprHA868S8AAAAC/yummy-desserts-desserts-milk-mocha.gif");
-    background-size: cover; 
-}
-.container h1{
-    margin-bottom: 20px;
-    margin-top: 50px;
-    font-style: bolder;
-    font-size: 30px;
-    font-weight: 700;
-    text-shadow: 0px 3px 6px rgb(147, 77, 77);
-}
-#fix{
-    margin-top: 30px;
-        border: none;
-        width: 400px;
-        height: 50px;
-        font-size: 30px;
-        border-radius: 10px;
-        background: none;
-        backdrop-filter: blur(5px);
-        border: 1px solid black;
-        font-weight: 550;
-}
-.container{
-    width: 400px;
-    height: 500px;
-    position: absolute;
-    left: 50%;
-    top: 40%;
-    transform: translate(-50%,-50%);
-    text-align: center;
-    
-}
-.gif{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width:100%;
-    height: 300px;
-    
-}
-
-.gifimg{
-    border-radius: 10px;
-    width: 384px;
-    height: 254px;
-    background-image: url("https://media1.tenor.com/m/UAFrdZCt29YAAAAC/milk-and-mocha-waiting-for-reply.gif");
-    background-size: cover; 
-}
-.answer-box{
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    /* background-color: black; */
-    padding: 10px;
-    margin-top: 5px;
-    width: 100%;
-    height: 80px;
-    gap: 50px;
-}
-.answer{
-    border: none;
-    width: 100px;
-    height: 50px;
-    font-size: 30px;
-    border-radius: 10px;
-    background: none;
-    backdrop-filter: blur(5px);
-    border: 1px solid black;
-    font-weight: 550;
-    
-}
-
-
-.answer:hover{
-    box-shadow: inset 0px 3px 6px rgba(0, 0, 0, 0.449);
-}
-.question{
-    font-size:10px;
-}
-@media screen and (max-width: 600px){
-    .container{
-        width: 100%;
-    }
-    .popup-content {
-            width: 90%;
-        }
-    .container h1{
-        margin-top: 20px;
-        padding: 8px;
-        font-size: 35px;
-    }
-    .answer{
-        font-size: 20px;
-        padding: 5px;
-    }
-    .gifimg{
-        border-radius: 10px;
-        width: 300px;
-        height: 198px;
-        background-image: url("https://media1.tenor.com/m/UAFrdZCt29YAAAAC/milk-and-mocha-waiting-for-reply.gif");
-        background-size: cover; 
-    }
-    .fix-gif{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width:100%;
-        height: 200px;
-        
-    
-    }
-    
-    .fix-gifimg{
-        border-radius: 10px;
-        width: 300px;
-        height: 168px;
-        background-image: url("https://media1.tenor.com/m/2VprHA868S8AAAAC/yummy-desserts-desserts-milk-mocha.gif");
-        background-size: cover; 
-    }
-    #fix{
-        margin-top: 30px;
-            border: none;
-            width: 250px;
-            height: 50px;
-            font-size: 30px;
-            border-radius: 10px;
-            background: none;
-            backdrop-filter: blur(5px);
-            border: 1px solid black;
-            font-weight: 550;
-    }
-    .confirmation{
-        display: none;
-        width: 100%;
-        height: 500px;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%,-50%);
-        text-align: center;
-    }
-}
-    
-    </style>
-    </style>
+<title>Page Title</title>
 </head>
 <body>
-    <div class="container">
-        <div class="question">
-            <h1>Date tayo? Wala ka namang choice e di mo naman mapipindot yung NO. XD</h1>
-        </div>
-        <div class="gif">
-            <div class="gifimg"></div>
-        </div>
-        <div class="answer-box">
-                <button class="answer" id="yes" onclick="openPopup()">Yes</button>
-                <button class="answer" id="no">No</button>
-        </div>
-        
-    </div>
-    <div class="confirmation">
-        <h1>Yayyyyyyyy!!! Finally</h1>
-            <div class="question">
-                <div class="fix-gif">
-                    <div class="fix-gifimg"></div>
+    <div class="ParentContainer">
+        <div class="container">
+            <div class="box">
+              <div class="imgBx">
+                <img src="assets/MAY.jpg">
+              </div>
+              <div class="content">
+                <div>
+                  <h2>MAY</h2>
+                  <p>Picture natin sa Gateway, Mga panahong patay na patay kapa saken.
+                  </p>
                 </div>
-                    
-                
+              </div>
             </div>
+            <div class="box">
+              <div class="imgBx">
+                <img src="assets/JUNE.jpg">
+              </div>
+              <div class="content">
+                <div>
+                  <h2>JUNE</h2>
+                  <p>First outing together 
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="box">
+              <div class="imgBx">
+                <img src="assets/JULY.jpg">
+              </div>
+              <div class="content">
+                <div>
+                  <h2>JULY</h2>
+                  <p> Eto yung sinundo kita tas tinreat moko sa shakey, Huhu thankyou sa food! <3
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="box">
+              <div class="imgBx">
+                <img src="assets/AUGUST.jpg">
+              </div>
+              <div class="content">
+                <div>
+                  <h2>AUGUST</h2>
+                  <p> Birthday natin, First meet up din ng parents natin. Kala mo siguro mag ppropose na ko no? HAHAHAH XD Cant believe we pull it out fr
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="box">
+                <div class="imgBx">
+                  <img src="assets/SEPTEMBER.jpg">
+                </div>
+                <div class="content">
+                  <div>
+                    <h2>SEPTEMBER</h2>
+                    <p> Sa ospital ata to? Sinamahan natin papa mo mag pa check up. ^_^
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="box">
+                <div class="imgBx">
+                  <img src="assets/OCT.jpg">
+                </div>
+                <div class="content">
+                  <div>
+                    <h2>OCTOBER</h2>
+                    <p> Sa alabang to? Not sure. Pero kung tama man ako, Vinisit natin si tito. ^_^
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="box">
+                <div class="imgBx">
+                  <img src="assets/NOVEMBER.jpg">
+                </div>
+                <div class="content">
+                  <div>
+                    <h2>NOVEMBER</h2>
+                    <p> Wala na masyado tayong picture cuz di mo na ko love :( huhu wag naman
+                    </p>
+                  </div>
+                </div>
+              </div>
+          </div>
+
+         
+      </div>
     </div>
 
-    <div class="popup" id="popup">
-        <div class="popup-content">
-           
-        </div>
-    </div>
-
-
-
-    </div>
-    <script>
-        const yes = document.querySelector("#yes");
-const no = document.querySelector("#no");
-const confirmation = document.querySelector(".confirmation");
-const container = document.querySelector(".container");
-
-noAnswerMethod = () => {
-    no.style.position = 'absolute'
-    xPosition = Math.floor(Math.random() * container.clientWidth)
-    yPosition = Math.floor(Math.random() * container.clientHeight)
-    no.style.top = `${yPosition}px`
-    no.style.left = `${xPosition-50}px`
-}
-no.addEventListener('click', noAnswerMethod)
-
-
-
-window.onclick = function(event) {
-            if (event.target == popup) {
-                popup.style.display = "none";
-            }
-        }
-
-function openPopup() {
-    const popup = document.getElementById('popup');
-    popup.style.display = 'flex'; // Use flex to center the content
-}
-
-    </script>
-    
 </body>
 </html>
+
+
